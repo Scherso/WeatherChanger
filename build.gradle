@@ -1,6 +1,7 @@
 plugins {
     id "net.minecraftforge.gradle.forge" version "6f53277"
     id "com.github.johnrengelman.shadow" version "6.1.0"
+    id 'org.spongepowered.mixin' version "d5f9873"
     id "net.kyori.blossom" version "1.3.0"
     id "java"
 }
@@ -25,6 +26,7 @@ minecraft {
     mappings = "stable_22"
     makeObfSourceJar = false
 
+    clientRunArgs += "--mixin mixins.${mod_id}.json"
     clientRunArgs += '--tweakClass gg.essential.loader.stage0.EssentialSetupTweaker'
 }
 
@@ -46,6 +48,7 @@ dependencies {
         transitive = false
     }
     implementation 'gg.essential:essential-1.8.9-forge:1626+release-launch'
+    annotationProcessor 'org.spongepowered:mixin:0.7.11-SNAPSHOT'
 }
 
 /**
@@ -66,6 +69,9 @@ processResources {
                 "mcversion": minecraft.version
         )
     }
+    filesMatching("mixins.${mod_id}.json") {
+        expand("id": mod_id)
+    }
 
     rename '(.+_at.cfg)', 'META-INF/$1'
 }
@@ -75,6 +81,7 @@ jar {
             'ModSide': 'CLIENT',
             'ForceLoadAsMod': true,
             'TweakClass': 'gg.essential.loader.stage0.EssentialSetupTweaker',
+            'MixinConfigs': "mixins.${mod_id}.json"
     )
     enabled = false
 }
@@ -92,6 +99,12 @@ task moveResources {
 moveResources.dependsOn processResources
 classes.dependsOn moveResources
 
+mixin {
+    disableRefMapWarning = true
+    defaultObfuscationEnv searge
+    add sourceSets.main, "mixins.${mod_id}.refmap.json"
+}
+
 // This adds support to ("include") libraries into our JAR
 shadowJar {
     archiveClassifier.set('')
@@ -99,4 +112,15 @@ shadowJar {
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
 }
 
-jar.dependsOn shadowJar
+reobf {
+    shadowJar {
+        classpath = sourceSets.main.compileClasspath
+    }
+}
+
+tasks.reobfJar.dependsOn tasks.shadowJar
+sourceSets {
+    main {
+        ext.refMap = "mixins.${mod_id}.refmap.json"
+    }
+}
