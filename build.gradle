@@ -49,6 +49,17 @@ processResources {
     }
 }
 
+// move resources so they can be accessed at runtime
+task moveResources {
+    doLast {
+        ant.move file: "${buildDir}/resources/main",
+                todir: "${buildDir}/classes/java"
+    }
+}
+
+moveResources.dependsOn processResources
+classes.dependsOn moveResources
+
 // This adds support to ("include") libraries into our JAR
 shadowJar {
     archiveClassifier.set('')
@@ -60,4 +71,4 @@ runClient {
 
 }
 
-jar.dependsOn shadowJar
+//jar.dependsOn shadowJar
