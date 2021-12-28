@@ -5,9 +5,11 @@ import dev.salmon.weatherchanger.handler.*;
 import dev.salmon.weatherchanger.handler.weather.ClearHandler;
 import dev.salmon.weatherchanger.handler.weather.RainHandler;
 import dev.salmon.weatherchanger.handler.weather.SnowHandler;
+import dev.salmon.weatherchanger.handler.weather.StormHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,7 +41,8 @@ public class WeatherListener {
             if (currentWeatherHandler instanceof WeatherHandler && !Minecraft.getMinecraft().isGamePaused()) {
                 ((WeatherHandler) currentWeatherHandler).update();
 
-                WorldInfo worldInfo = Minecraft.getMinecraft().theWorld.getWorldInfo();
+                World serverWorld = MinecraftServer.getServer().worldServers[0];
+                WorldInfo worldInfo = serverWorld.getWorldInfo();
                 if (worldInfo.isRaining()) {
                     worldInfo.setCleanWeatherTime(1000000000);
                     worldInfo.setRainTime(0);
