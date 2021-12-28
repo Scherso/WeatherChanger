@@ -21,7 +21,7 @@ public class WeatherConfig extends Vigilant {
             category = "General",
             options = {"Clear", "Snow", "Rain"}
     )
-    private Weather currentWeather = Weather.CLEAR;
+    private int currentWeather = 0;
     // 0 == Clear, 1 == Snow, 2 == Rain
 
     @Property(
@@ -44,22 +44,7 @@ public class WeatherConfig extends Vigilant {
 
     public boolean isShowUpdate() { return this.showUpdate; }
 
-    public Weather getCurrentWeather() { return currentWeather; }
+    public int getCurrentWeather() { return currentWeather; }
 
     public float getStrength() { return this.strength; }
-
-    public enum Weather {
-        CLEAR("Clear"), SNOW("Snow"), RAIN("Rain");
-
-        private String name;
-
-        Weather(String name) {
-            this.name = name;
-        }
-
-        public String getName() { return this.name; }
-
-        @Override
-        public String toString() { return this.name; }
-    }
 }
