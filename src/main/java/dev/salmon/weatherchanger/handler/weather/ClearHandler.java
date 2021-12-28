@@ -1,4 +1,4 @@
-package dev.salmon.weatherchanger.handler;
+package dev.salmon.weatherchanger.handler.weather;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;

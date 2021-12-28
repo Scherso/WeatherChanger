@@ -1,7 +1,8 @@
-package dev.salmon.weatherchanger.handler;
+package dev.salmon.weatherchanger.handler.weather;
 
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
+import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -29,8 +30,11 @@ public class RainHandler extends WeatherHandler {
     private float[] rainXCoords = new float[1024];
     private float[] rainYCoords = new float[1024];
     private int rainSoundCounter;
+    /* whether it should rain with darker lightmaps */
+    private boolean cloudy;
 
-    public RainHandler() {
+    public RainHandler(boolean cloudy) {
+        this.cloudy = cloudy;
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 32; ++j) {
                 float f = (float)(j - 16);
