@@ -5,7 +5,7 @@
     "description": "A mod that changes the weather",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
+    "url": "https://github.com/Scherso/Weather-Changer",
     "updateUrl": "",
     "authorList": [
       "Salmon",
