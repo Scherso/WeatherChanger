@@ -49,6 +49,17 @@ public class WeatherConfig extends Vigilant {
     public float getStrength() { return this.strength; }
 
     public enum Weather {
-        CLEAR, SNOW, RAIN;
+        CLEAR("Clear"), SNOW("Snow"), RAIN("Rain");
+
+        private String name;
+
+        Weather(String name) {
+            this.name = name;
+        }
+
+        public String getName() { return this.name; }
+
+        @Override
+        public String toString() { return this.name; }
     }
 }
