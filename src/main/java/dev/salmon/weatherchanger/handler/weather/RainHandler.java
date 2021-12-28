@@ -24,8 +24,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.Random;
 
 public class RainHandler extends WeatherHandler {
-    private Minecraft mc = Minecraft.getMinecraft();
-    private final Random random = new Random();
     private final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private float[] rainXCoords = new float[1024];
     private float[] rainYCoords = new float[1024];
@@ -67,8 +65,7 @@ public class RainHandler extends WeatherHandler {
 
             if (this.mc.gameSettings.particleSetting == 1) {
                 k >>= 1;
-            }
-            else if (this.mc.gameSettings.particleSetting == 2) {
+            } else if (this.mc.gameSettings.particleSetting == 2) {
                 k = 0;
             }
 
@@ -78,23 +75,23 @@ public class RainHandler extends WeatherHandler {
                 BlockPos blockpos2 = blockpos1.down();
                 Block block = world.getBlockState(blockpos2).getBlock();
 
-                    double d3 = this.random.nextDouble();
-                    double d4 = this.random.nextDouble();
+                double d3 = this.random.nextDouble();
+                double d4 = this.random.nextDouble();
 
-                    if (block.getMaterial() == Material.lava) {
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)blockpos1.getX() + d3, (double)((float)blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), (double)blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                if (block.getMaterial() == Material.lava) {
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)blockpos1.getX() + d3, (double)((float)blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), (double)blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                }
+                else if (block.getMaterial() != Material.air) {
+                    block.setBlockBoundsBasedOnState(world, blockpos2);
+                    ++j;
+
+                    if (this.random.nextInt(j) == 0) {
+                        d0 = (double)blockpos2.getX() + d3;
+                        d1 = (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY() - 1.0D;
+                        d2 = (double)blockpos2.getZ() + d4;
                     }
-                    else if (block.getMaterial() != Material.air) {
-                        block.setBlockBoundsBasedOnState(world, blockpos2);
-                        ++j;
 
-                        if (this.random.nextInt(j) == 0) {
-                            d0 = (double)blockpos2.getX() + d3;
-                            d1 = (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY() - 1.0D;
-                            d2 = (double)blockpos2.getZ() + d4;
-                        }
-
-                        this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double)blockpos2.getX() + d3, (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), (double)blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double)blockpos2.getX() + d3, (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), (double)blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
                 }
             }
 

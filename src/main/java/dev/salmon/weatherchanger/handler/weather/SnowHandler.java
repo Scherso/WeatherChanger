@@ -18,7 +18,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.Random;
 
 public class SnowHandler extends WeatherHandler {
-    private final Random random = new Random();
     private final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
     private float[] snowX = new float[1024];
     private float[] snowY = new float[1024];
