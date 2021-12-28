@@ -11,8 +11,6 @@ public class WeatherConfig extends Vigilant {
 
     public WeatherConfig() {
         super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
-        this.initialize();
-        this.preload();
     }
 
     @Property(
