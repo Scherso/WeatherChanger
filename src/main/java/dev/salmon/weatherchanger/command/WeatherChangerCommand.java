@@ -12,6 +12,6 @@ public class WeatherChangerCommand extends Command {
 
     @DefaultHandler
     public void handle() {
-        EssentialAPI.getGuiUtil().openScreen(WeatherChanger.config.gui());
+        EssentialAPI.getGuiUtil().openScreen(WeatherChanger.getWeatherChanger().getConfig().gui());
     }
 }
