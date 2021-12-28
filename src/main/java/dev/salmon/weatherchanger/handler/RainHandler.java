@@ -1,6 +1,9 @@
 package dev.salmon.weatherchanger.handler;
 
 import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.config.WeatherConfig;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -10,9 +13,11 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IRenderHandler;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
@@ -23,6 +28,7 @@ public class RainHandler extends WeatherHandler {
     private final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private float[] rainXCoords = new float[1024];
     private float[] rainYCoords = new float[1024];
+    private int rainSoundCounter;
 
     public RainHandler() {
         for (int i = 0; i < 32; ++i) {
@@ -32,6 +38,70 @@ public class RainHandler extends WeatherHandler {
                 float f2 = MathHelper.sqrt_float(f * f + f1 * f1);
                 this.rainXCoords[i << 5 | j] = -f1 / f2;
                 this.rainYCoords[i << 5 | j] = f / f2;
+            }
+        }
+    }
+
+    private void addRainParticles() {
+        float f = WeatherConfig.strength;
+
+        if (!this.mc.gameSettings.fancyGraphics) {
+            f /= 2.0F;
+        }
+
+        if (f != 0.0F) {
+            this.random.setSeed((long)this.rendererUpdateCount * 312987231L);
+            Entity entity = this.mc.getRenderViewEntity();
+            World world = this.mc.theWorld;
+            BlockPos blockpos = new BlockPos(entity);
+            int i = 10;
+            double d0 = 0.0D;
+            double d1 = 0.0D;
+            double d2 = 0.0D;
+            int j = 0;
+            int k = (int)(100.0F * f * f);
+
+            if (this.mc.gameSettings.particleSetting == 1) {
+                k >>= 1;
+            }
+            else if (this.mc.gameSettings.particleSetting == 2) {
+                k = 0;
+            }
+
+            for (int l = 0; l < k; ++l) {
+                BlockPos blockpos1 = world.getPrecipitationHeight(blockpos.add(this.random.nextInt(i) - this.random.nextInt(i), 0, this.random.nextInt(i) - this.random.nextInt(i)));
+                BiomeGenBase biomegenbase = world.getBiomeGenForCoords(blockpos1);
+                BlockPos blockpos2 = blockpos1.down();
+                Block block = world.getBlockState(blockpos2).getBlock();
+
+                    double d3 = this.random.nextDouble();
+                    double d4 = this.random.nextDouble();
+
+                    if (block.getMaterial() == Material.lava) {
+                        this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)blockpos1.getX() + d3, (double)((float)blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), (double)blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    }
+                    else if (block.getMaterial() != Material.air) {
+                        block.setBlockBoundsBasedOnState(world, blockpos2);
+                        ++j;
+
+                        if (this.random.nextInt(j) == 0) {
+                            d0 = (double)blockpos2.getX() + d3;
+                            d1 = (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY() - 1.0D;
+                            d2 = (double)blockpos2.getZ() + d4;
+                        }
+
+                        this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double)blockpos2.getX() + d3, (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), (double)blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                }
+            }
+
+            if (j > 0 && this.random.nextInt(3) < this.rainSoundCounter++) {
+                this.rainSoundCounter = 0;
+
+                if (d1 > (double)(blockpos.getY() + 1) && world.getPrecipitationHeight(blockpos).getY() > MathHelper.floor_float((float)blockpos.getY())) {
+                    this.mc.theWorld.playSound(d0, d1, d2, "ambient.weather.rain", 0.1F, 0.5F, false);
+                } else {
+                    this.mc.theWorld.playSound(d0, d1, d2, "ambient.weather.rain", 0.2F, 1.0F, false);
+                }
             }
         }
     }
@@ -134,5 +204,6 @@ public class RainHandler extends WeatherHandler {
     @Override
     public void update() {
         this.rendererUpdateCount++;
+        this.addRainParticles();
     }
 }

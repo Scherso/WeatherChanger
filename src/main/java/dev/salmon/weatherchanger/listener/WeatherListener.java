@@ -1,10 +1,7 @@
 package dev.salmon.weatherchanger.listener;
 
 import dev.salmon.weatherchanger.WeatherChanger;
-import dev.salmon.weatherchanger.handler.ClearHandler;
-import dev.salmon.weatherchanger.handler.RainHandler;
-import dev.salmon.weatherchanger.handler.SnowHandler;
-import dev.salmon.weatherchanger.handler.WeatherHandler;
+import dev.salmon.weatherchanger.handler.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraftforge.client.IRenderHandler;
@@ -20,7 +17,7 @@ public class WeatherListener {
             IRenderHandler currentWeatherHandler = world.provider.getWeatherRenderer();
 
             if (currentWeather == 0 && currentWeatherHandler instanceof WeatherHandler) {
-              world.provider.setWeatherRenderer(null);
+                world.provider.setWeatherRenderer(null);
             } else if (currentWeather == 1 && !(currentWeatherHandler instanceof ClearHandler)) {
                 world.provider.setWeatherRenderer(new ClearHandler());
             } else if (currentWeather == 2 && !(currentWeatherHandler instanceof SnowHandler)) {

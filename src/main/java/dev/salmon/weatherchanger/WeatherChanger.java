@@ -1,3 +1,4 @@
+
 package dev.salmon.weatherchanger;
 
 import dev.salmon.weatherchanger.command.WeatherChangerCommand;
