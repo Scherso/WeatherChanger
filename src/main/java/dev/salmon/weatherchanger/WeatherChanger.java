@@ -4,6 +4,7 @@ package dev.salmon.weatherchanger;
 import dev.salmon.weatherchanger.command.WeatherChangerCommand;
 import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.listener.WeatherListener;
+import gg.essential.vigilance.Vigilance;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +27,9 @@ public class WeatherChanger {
 
     @Mod.EventHandler
     protected void init(FMLInitializationEvent event) {
+        Vigilance.initialize();
         this.config = new WeatherConfig();
+        this.config.preload();
         this.registerCommands(new WeatherChangerCommand());
         registerListeners(new WeatherListener());
     }
