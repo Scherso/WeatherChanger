@@ -8,6 +8,7 @@ import gg.essential.vigilance.data.PropertyType;
 import java.io.File;
 
 public class WeatherConfig extends Vigilant {
+
     public WeatherConfig() {
         super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
         this.initialize();
@@ -32,7 +33,7 @@ public class WeatherConfig extends Vigilant {
             minF = 0f,
             maxF = 1.0f
     )
-    private float strength = 1.0f;
+    public static float strength = 1.0f;
 
     @Property(
             type = PropertyType.SWITCH,
