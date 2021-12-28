@@ -2,13 +2,14 @@
   {
     "modid": "${id}",
     "name": "${name}",
-    "description": "An example template",
+    "description": "A mod that changes the weather",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
     "authorList": [
-      "W-OVERFLOW"
+      "Salmon",
+      "Max"
     ],
     "credits": "",
     "logoFile": "",
