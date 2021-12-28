@@ -4,7 +4,7 @@
   "package": "com.example.template.mixin",
   "refmap": "mixins.${id}.refmap.json",
   "mixins": [
-    "MinecraftMixin"
+    "dev.salmon.weatherchanger.mixin.MinecraftMixin"
   ],
   "verbose": true
 }

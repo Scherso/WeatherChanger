@@ -1,4 +1,4 @@
-package com.example.template.mixin;
+package dev.salmon.weatherchanger.mixin;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;

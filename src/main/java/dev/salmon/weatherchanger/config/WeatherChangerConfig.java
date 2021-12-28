@@ -1,8 +1,8 @@
-package com.example.template.config;
+package dev.salmon.weatherchanger.config;
 
-import com.example.template.ForgeTemplate;
-import com.example.template.updater.DownloadGui;
-import com.example.template.updater.Updater;
+import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.updater.DownloadGui;
+import dev.salmon.weatherchanger.updater.Updater;
 import gg.essential.api.EssentialAPI;
 import gg.essential.vigilance.Vigilant;
 import gg.essential.vigilance.data.Property;
@@ -10,7 +10,7 @@ import gg.essential.vigilance.data.PropertyType;
 
 import java.io.File;
 
-public class TemplateConfig extends Vigilant {
+public class WeatherChangerConfig extends Vigilant {
     @Property(
             type = PropertyType.SWITCH,
             name = "Show Update Notification",
@@ -29,11 +29,11 @@ public class TemplateConfig extends Vigilant {
         if (Updater.shouldUpdate) EssentialAPI.getGuiUtil()
                 .openScreen(new DownloadGui());
         else EssentialAPI.getNotifications()
-                .push(ForgeTemplate.NAME, "No update had been detected at startup, and thus the update GUI has not been shown.");
+                .push(WeatherChanger.NAME, "No update had been detected at startup, and thus the update GUI has not been shown.");
     }
 
-    public TemplateConfig() {
-        super(new File(ForgeTemplate.modDir, ForgeTemplate.ID + ".toml"), ForgeTemplate.NAME);
+    public WeatherChangerConfig() {
+        super(new File(WeatherChanger.modDir, WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
         initialize();
     }
 }
