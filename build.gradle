@@ -6,7 +6,7 @@ plugins {
 }
 
 version = mod_version
-group = "com.example"
+group = "dev.salmon"
 archivesBaseName = mod_name
 
 sourceCompatibility = targetCompatibility = 1.8
