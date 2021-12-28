@@ -1,7 +1,7 @@
-package dev.salmon.weatherchanger.handler;
+package dev.salmon.weatherchanger.handler.weather;
 
 import dev.salmon.weatherchanger.WeatherChanger;
-import net.minecraftforge.client.IRenderHandler;
+import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.EntityRenderer;
