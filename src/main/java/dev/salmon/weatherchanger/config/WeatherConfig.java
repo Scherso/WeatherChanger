@@ -7,8 +7,8 @@ import gg.essential.vigilance.data.PropertyType;
 
 import java.io.File;
 
-public class WeatherChangerConfig extends Vigilant {
-    public WeatherChangerConfig() {
+public class WeatherConfig extends Vigilant {
+    public WeatherConfig() {
         super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
         this.initialize();
         this.preload();
@@ -21,7 +21,7 @@ public class WeatherChangerConfig extends Vigilant {
             category = "General",
             options = {"Clear", "Snow", "Rain"}
     )
-    private int currentWeather = 0;
+    private Weather currentWeather = Weather.CLEAR;
     // 0 == Clear, 1 == Snow, 2 == Rain
 
     @Property(
@@ -44,7 +44,11 @@ public class WeatherChangerConfig extends Vigilant {
 
     public boolean isShowUpdate() { return this.showUpdate; }
 
-    public int getCurrentWeather() { return currentWeather; }
+    public Weather getCurrentWeather() { return currentWeather; }
 
     public float getStrength() { return this.strength; }
+
+    public enum Weather {
+        CLEAR, SNOW, RAIN;
+    }
 }

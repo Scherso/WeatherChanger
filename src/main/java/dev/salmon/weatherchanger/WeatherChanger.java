@@ -1,7 +1,7 @@
 package dev.salmon.weatherchanger;
 
 import dev.salmon.weatherchanger.command.WeatherChangerCommand;
-import dev.salmon.weatherchanger.config.WeatherChangerConfig;
+import dev.salmon.weatherchanger.config.WeatherConfig;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class WeatherChanger {
     public static final String NAME = "@NAME@", VER = "@VER@", ID = "@ID@";
     private static WeatherChanger instance;
-    private WeatherChangerConfig config;
+    private WeatherConfig config;
 
     @Mod.EventHandler
     protected void preInit(FMLPreInitializationEvent event) {
@@ -21,10 +21,10 @@ public class WeatherChanger {
     @Mod.EventHandler
     protected void init(FMLInitializationEvent event) {
         new WeatherChangerCommand().register();
-        this.config = new WeatherChangerConfig();
+        this.config = new WeatherConfig();
     }
 
-    public WeatherChangerConfig getConfig() { return this.config; }
+    public WeatherConfig getConfig() { return this.config; }
 
     public static WeatherChanger getWeatherChanger() { return instance; }
 }
