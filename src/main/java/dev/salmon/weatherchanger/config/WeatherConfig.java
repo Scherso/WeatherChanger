@@ -19,10 +19,10 @@ public class WeatherConfig extends Vigilant {
             name = "Pick the Weather",
             description = "Control the Weather!",
             category = "General",
-            options = {"Clear", "Snow", "Rain"}
+            options = {"Vanilla", "Clear", "Snow", "Rain"}
     )
     private int currentWeather = 0;
-    // 0 == Clear, 1 == Snow, 2 == Rain
+    // 0 == Vanilla, 1 == Clear, 2 == Snow, 3 == Rain
 
     @Property(
             type = PropertyType.DECIMAL_SLIDER,
@@ -32,7 +32,7 @@ public class WeatherConfig extends Vigilant {
             minF = 0f,
             maxF = 1.0f
     )
-    private float strength = 1f;
+    private float strength = 1.0f;
 
     @Property(
             type = PropertyType.SWITCH,
