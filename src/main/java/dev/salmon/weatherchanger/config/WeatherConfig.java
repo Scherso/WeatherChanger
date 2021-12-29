@@ -34,6 +34,15 @@ public class WeatherConfig extends Vigilant {
     public static float strength = 1.0f;
 
     @Property(
+            type = PropertyType.SWITCH,
+            name = "Real Life Weather",
+            description = "Toggle weather that corresponds your local weather.",
+            category = "General",
+            subcategory = "Real Weather"
+    )
+    public static boolean realWeather = false;
+
+    @Property(
             type = PropertyType.TEXT,
             name = "OpenWeatherMap API Key",
             description = "Used to gather local weather data if using the \"Real WeatherChanger\"",

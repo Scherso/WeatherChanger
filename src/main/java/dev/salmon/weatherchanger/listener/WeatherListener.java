@@ -1,6 +1,7 @@
 package dev.salmon.weatherchanger.listener;
 
 import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.*;
 import dev.salmon.weatherchanger.handler.weather.*;
 import net.minecraft.client.Minecraft;
@@ -32,9 +33,11 @@ public class WeatherListener {
             } else if (currentWeather == 2 && !(currentWeatherHandler instanceof SnowHandler)) {
                 world.provider.setWeatherRenderer(new SnowHandler());
             } else if (currentWeather == 3 && !(currentWeatherHandler instanceof RainHandler)) {
-                world.provider.setWeatherRenderer(new RainHandler(false));
-            } else if (currentWeather == 8 && !(currentWeatherHandler instanceof RealHandler)) {
+                world.provider.setWeatherRenderer(new RainHandler(true));
+            } else if (WeatherConfig.realWeather && !(currentWeatherHandler instanceof RealHandler)) {
                 world.provider.setWeatherRenderer(new RealHandler());
+            } else if (currentWeather == 6 && !(currentWeatherHandler instanceof HailHandler)) {
+                world.provider.setWeatherRenderer(new HailHandler(true));
             }
 
             if (currentWeatherHandler instanceof WeatherHandler && !Minecraft.getMinecraft().isGamePaused()) {
