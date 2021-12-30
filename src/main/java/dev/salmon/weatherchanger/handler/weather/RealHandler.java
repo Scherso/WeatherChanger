@@ -5,8 +5,9 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
+import dev.salmon.weatherchanger.config.WeatherType;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
-import dev.salmon.weatherchanger.util.Multithread;
+import dev.salmon.weatherchanger.util.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.ChatComponentText;
@@ -22,18 +23,18 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class RealHandler extends WeatherHandler {
+
     private long lastWeatherCheck;
     private final JsonParser jsonParser = new JsonParser();
     private WeatherHandler weatherRender;
 
-    @Override
     public void update() {
         /* Checks local weather every minute */
         if (System.currentTimeMillis() - this.lastWeatherCheck > 60 * 1000) {
             this.lastWeatherCheck = System.currentTimeMillis();
 
-            Multithread.async(()-> {
-                WeatherConfig config = WeatherChanger.getWeatherChanger().getConfig();
+            Multithreading.runAsync(()-> {
+                WeatherConfig config = WeatherChanger.getInstance().getConfig();
                 String apiKey = config.getWeatherApiKey();
 
                 if (apiKey.isEmpty()) {
@@ -83,6 +84,10 @@ public class RealHandler extends WeatherHandler {
     @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
 //        this.weatherRender.render(partialTicks, world, mc);
+    }
+
+    public dev.salmon.weatherchanger.config.WeatherType getType() {
+        return dev.salmon.weatherchanger.config.WeatherType.REAL;
     }
 
     public enum WeatherType {
@@ -171,7 +176,6 @@ public class RealHandler extends WeatherHandler {
 
         public String getName() { return this.name().replace("_", " ").toLowerCase(); }
 
-        @Override
         public String toString() { return this.getName(); }
     }
 }

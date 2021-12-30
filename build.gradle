@@ -4,71 +4,72 @@ plugins {
     id "java"
 }
 
-version = mod_version
-group = "dev.salmon"
-archivesBaseName = mod_name
+version = projectVersion
+group = "dev.salmon.weatherchanger"
+archivesBaseName = projectName
 
 sourceCompatibility = targetCompatibility = 1.8
-compileJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = "UTF-8"
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    replace('@NAME@', mod_name)
-    replace('@VER@': mod_version)
-    replace('@ID@', mod_id)
+    replace("@NAME@", projectName)
+    replace("@VER@": projectVersion)
+    replace("@ID@", projectId)
 }
 
 configurations {
-    // Creates an extra configuration that implements `implementation` to be used later as the configuration that shades libraries
     shade
     implementation.extendsFrom(shade)
 }
 
 repositories {
     mavenCentral()
-    maven { url 'https://repo.sk1er.club/repository/maven-public/' }
+    maven { url "https://repo.sk1er.club/repository/maven-public/" }
 }
 
 dependencies {
-    implementation 'gg.essential:vigilance-1.8.9-forge:194'
+    implementation("gg.essential:vigilance-1.8.9-forge:${vigilanceVersion}")
 }
 
-/**
- * This task simply replaces the `${version}` and `${mcversion}` properties in the mcmod.info with the data from Gradle
- */
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", version
-    inputs.property "mcversion", minecraft.version
+    inputs.property("version", version)
+    inputs.property("mcversion", minecraft.version)
 
     filesMatching("mcmod.info") {
-        expand("id": mod_id, "name": mod_name, "version": version, "mcversion": minecraft.version)
+        expand(
+                "id": projectId,
+                "name": projectName,
+                "version": version,
+                "mcversion": minecraft.version
+        )
     }
 }
 
-// move resources so they can be accessed at runtime
 task moveResources {
     doLast {
-        ant.move file: "${buildDir}/resources/main",
-                todir: "${buildDir}/classes/java"
+        /* We wrap this action in a try-catch because of potential failures while hotswapping. */
+        try {
+            ant.move(
+                    file: "${buildDir}/resources/main",
+                    todir: "${buildDir}/classes/java"
+            )
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
-moveResources.dependsOn processResources
-classes.dependsOn moveResources
-
-// This adds support to ("include") libraries into our JAR
 shadowJar {
-    archiveClassifier.set('')
     configurations = [project.configurations.shade]
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
+
+    archiveClassifier.set("")
 }
 
-runClient {
-
-}
-
-//jar.dependsOn shadowJar
+moveResources.dependsOn(processResources)
+classes.dependsOn(moveResources)
+jar.finalizedBy(shadowJar)
