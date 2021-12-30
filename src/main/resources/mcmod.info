@@ -1,19 +1,19 @@
 [
-  {
-    "modid": "${id}",
-    "name": "${name}",
-    "description": "A mod that changes the weather",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://github.com/Scherso/Weather-Changer",
-    "updateUrl": "",
-    "authorList": [
-      "Salmon",
-      "Max"
-    ],
-    "credits": "",
-    "logoFile": "",
-    "screenshots": [],
-    "dependencies": []
-  }
+    {
+        "modid": "${id}",
+        "name": "${name}",
+        "description": "A mod that changes the weather",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "https://github.com/Scherso/Weather-Changer",
+        "updateUrl": "",
+        "authorList": [
+            "Salmon",
+            "Max"
+        ],
+        "credits": "Deftu",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
 ]
