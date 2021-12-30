@@ -6,7 +6,7 @@ import com.google.gson.JsonSyntaxException;
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
-import dev.salmon.weatherchanger.util.Multithread;
+import dev.salmon.weatherchanger.util.Multithreading;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.ChatComponentText;
@@ -32,8 +32,8 @@ public class RealHandler extends WeatherHandler {
         if (System.currentTimeMillis() - this.lastWeatherCheck > 60 * 1000) {
             this.lastWeatherCheck = System.currentTimeMillis();
 
-            Multithread.async(()-> {
-                WeatherConfig config = WeatherChanger.getWeatherChanger().getConfig();
+            Multithreading.runAsync(()-> {
+                WeatherConfig config = WeatherChanger.getInstance().getConfig();
                 String apiKey = config.getWeatherApiKey();
 
                 if (apiKey.isEmpty()) {

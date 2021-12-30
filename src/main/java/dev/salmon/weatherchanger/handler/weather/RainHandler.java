@@ -1,7 +1,6 @@
 package dev.salmon.weatherchanger.handler.weather;
 
 import dev.salmon.weatherchanger.WeatherChanger;
-import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -21,17 +20,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
-
 public class RainHandler extends WeatherHandler {
+
+    private final WeatherChanger weatherChanger;
+    private boolean cloudy;
+
     private final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private float[] rainXCoords = new float[1024];
     private float[] rainYCoords = new float[1024];
     private int rainSoundCounter;
-    /* whether it should rain with darker lightmaps */
-    private boolean cloudy;
 
-    public RainHandler(boolean cloudy) {
+    public RainHandler(WeatherChanger weatherChanger, boolean cloudy) {
+        this.weatherChanger = weatherChanger;
         this.cloudy = cloudy;
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 32; ++j) {
@@ -45,7 +45,7 @@ public class RainHandler extends WeatherHandler {
     }
 
     private void addRainParticles() {
-        float f = WeatherConfig.strength;
+        float f = weatherChanger.getConfig().getStrength();
 
         if (!this.mc.gameSettings.fancyGraphics) {
             f /= 2.0F;
@@ -178,7 +178,7 @@ public class RainHandler extends WeatherHandler {
                     double d6 = (double)((float)l1 + 0.5F) - entity.posX;
                     double d7 = (double)((float)k1 + 0.5F) - entity.posZ;
                     float f3 = MathHelper.sqrt_double(d6 * d6 + d7 * d7) / (float)i1;
-                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherChanger.getWeatherChanger().getConfig().getStrength();
+                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherChanger.getInstance().getConfig().getStrength();
                     blockpos$mutableblockpos.set(l1, i3, k1);
                     int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
                     int k3 = j3 >> 16 & 65535;

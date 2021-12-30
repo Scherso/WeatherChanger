@@ -8,7 +8,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -23,7 +22,7 @@ public class StormHandler extends RainHandler {
     private Field loadedChunks;
 
     public StormHandler() {
-        super(true);
+        super(weatherChanger, true);
         try {
             this.loadedChunks = World.class.getDeclaredField("activeChunkSet");
             this.loadedChunks.setAccessible(true);
