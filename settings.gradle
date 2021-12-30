@@ -26,4 +26,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = mod_name
+rootProject.name = projectName
