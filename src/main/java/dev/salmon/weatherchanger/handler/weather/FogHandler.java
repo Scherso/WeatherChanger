@@ -5,13 +5,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 
 public class FogHandler extends WeatherHandler {
-    @Override
+
+    // TODO
+
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
-
     }
 
-    @Override
     public void update() {
-
     }
+
 }

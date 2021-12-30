@@ -27,6 +27,6 @@ public class WeatherChangerCommand extends CommandBase {
     }
 
     public void processCommand(ICommandSender sender, String[] args) {
-        Multithreading.schedule(() -> Minecraft.getMinecraft().displayGuiScreen(WeatherChanger.getInstance().getConfig().gui()), 1, TimeUnit.SECONDS);
+        Multithreading.schedule(() -> Minecraft.getMinecraft().displayGuiScreen(WeatherChanger.getInstance().getConfig().gui()), 100, TimeUnit.MILLISECONDS);
     }
 }

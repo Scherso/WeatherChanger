@@ -26,9 +26,8 @@ public class WeatherListener {
             WeatherType currentWeather = WeatherChanger.getInstance().getConfig().getCurrentWeather();
             IRenderHandler currentWeatherHandler = world.provider.getWeatherRenderer();
 
-            if (currentWeather == 0 && currentWeatherHandler instanceof WeatherHandler) {
+            /*if (currentWeather == 0 && currentWeatherHandler instanceof WeatherHandler) {
                 world.provider.setWeatherRenderer(null);
-                /* Reset worldInfo cleanWeather timer */
                 int i = (300 + (new Random()).nextInt(600)) * 20;
                 Minecraft.getMinecraft().theWorld.getWorldInfo().setCleanWeatherTime(i);
             } else if (currentWeather == 1 && !(currentWeatherHandler instanceof ClearHandler)) {
@@ -41,7 +40,7 @@ public class WeatherListener {
                 world.provider.setWeatherRenderer(new RealHandler());
             } else if (currentWeather == 6 && !(currentWeatherHandler instanceof HailHandler)) {
                 world.provider.setWeatherRenderer(new HailHandler(true));
-            }
+            }*/
 
             if (currentWeatherHandler instanceof WeatherHandler && !Minecraft.getMinecraft().isGamePaused()) {
                 ((WeatherHandler) currentWeatherHandler).update();
