@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
+import dev.salmon.weatherchanger.config.WeatherType;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import dev.salmon.weatherchanger.util.Multithreading;
 import net.minecraft.client.Minecraft;
@@ -83,6 +84,10 @@ public class RealHandler extends WeatherHandler {
     @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
 //        this.weatherRender.render(partialTicks, world, mc);
+    }
+
+    public dev.salmon.weatherchanger.config.WeatherType getType() {
+        return dev.salmon.weatherchanger.config.WeatherType.REAL;
     }
 
     public enum WeatherType {
@@ -171,7 +176,6 @@ public class RealHandler extends WeatherHandler {
 
         public String getName() { return this.name().replace("_", " ").toLowerCase(); }
 
-        @Override
         public String toString() { return this.getName(); }
     }
 }

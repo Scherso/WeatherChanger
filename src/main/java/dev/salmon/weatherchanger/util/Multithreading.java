@@ -38,7 +38,7 @@ public class Multithreading {
     }
 
     public static SimpleDateFormat getFormattedDate() {
-        return new SimpleDateFormat("EEEEE dd MMMMM yyyy", CACHED_LOCALE);
+        return new SimpleDateFormat("EEEEE dd MMMMM yyyy", getLocale());
     }
 
 }
