@@ -24,11 +24,10 @@ public class WeatherChanger {
 
     @Mod.EventHandler
     protected void preInit(FMLPreInitializationEvent event) {
-        instance = this;
     }
 
     @Mod.EventHandler
-    protected void init(FMLInitializationEvent event) {
+    protected void onInitialization(FMLInitializationEvent event) {
         Vigilance.initialize();
         config = new WeatherConfig();
         config.preload();
