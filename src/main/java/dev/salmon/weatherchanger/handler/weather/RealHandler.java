@@ -49,7 +49,7 @@ public class RealHandler extends WeatherHandler {
 
                 String url = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", location, apiKey);
 
-                JsonObject response = new JsonObject();
+                WeatherType weather = null;
                 try (CloseableHttpClient client = HttpClients.createDefault()) {
                     HttpGet request = new HttpGet(url);
 
@@ -57,20 +57,22 @@ public class RealHandler extends WeatherHandler {
                         StringWriter writer = new StringWriter();
                         IOUtils.copy(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8), writer);
 
-                        response = jsonParser.parse(writer.toString()).getAsJsonObject();
+                        JsonObject response = jsonParser.parse(writer.toString()).getAsJsonObject();
+                        int weatherId = response.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
+                        /* only reason this should return null is if OpenWeatherMap changes their ID's */
+                        weather = WeatherType.fromId(weatherId);
                     } catch (JsonSyntaxException ex) {
                         /* Retrieved bad Json */
                         ex.printStackTrace();
-                        return;
                     }
-
-                    int weatherId = response.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
-                    /* only reason this should return null is if OpenWeatherMap changes their ID's */
-                    WeatherType weatherType = WeatherType.fromId(weatherId);
-                    System.out.println(weatherType.toString());
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+
+                if (weather == null)
+                    weather = WeatherType.CLEAR_SKY;
+
+                System.out.println(weather.getName());
             });
 
 //            if (!this.mc.isGamePaused())
