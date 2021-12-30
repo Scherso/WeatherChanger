@@ -13,15 +13,36 @@ public class WeatherConfig extends Vigilant {
         super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
     }
 
+    /**
+     * Values:
+     *      0 - Vanilla
+     *      1 - Clear
+     *      2 - Snow
+     *      3 - Rain
+     *      4 - Storm
+     *      5 - Hail
+     *      6 - Fog
+     *      7 - Cloudy
+     *      8 - Real
+     */
     @Property(
             type = PropertyType.SELECTOR,
             name = "Pick the Weather",
             description = "Control the Weather!",
             category = "General",
-            options = {"Vanilla", "Clear", "Snow", "Rain", "Storm", "Hail", "Fog", "Cloudy", "Real"}
+            options = {
+                    "Vanilla",
+                    "Clear",
+                    "Snow",
+                    "Rain",
+                    "Storm",
+                    "Hail",
+                    "Fog",
+                    "Cloudy",
+                    "Real"
+            }
     )
     private int currentWeather = 0;
-    // 0 == Vanilla, 1 == Clear, 2 == Snow, 3 == Rain, 4 == Storm, 5 == Hail, 6 == Fog, 7 == Cloudy, 8 == Real
 
     @Property(
             type = PropertyType.DECIMAL_SLIDER,
@@ -31,7 +52,7 @@ public class WeatherConfig extends Vigilant {
             minF = 0f,
             maxF = 1.0f
     )
-    public static float strength = 1.0f;
+    private float strength = 1.0f;
 
     @Property(
             type = PropertyType.SWITCH,
@@ -90,17 +111,31 @@ public class WeatherConfig extends Vigilant {
     )
     private boolean showUpdate = true;
 
-    public int getCurrentWeather() { return currentWeather; }
+    public WeatherType getCurrentWeather() {
+        return WeatherType.from(currentWeather);
+    }
 
-    public float getStrength() { return this.strength; }
+    public float getStrength() {
+        return strength;
+    }
 
-    public String getWeatherApiKey() { return this.weatherApiKey; }
+    public String getWeatherApiKey() {
+        return weatherApiKey;
+    }
 
-    public String getWeatherCountry() { return this.weatherCountry; }
+    public String getWeatherCountry() {
+        return weatherCountry;
+    }
 
-    public String getWeatherState() { return this.weatherState; }
+    public String getWeatherState() {
+        return weatherState;
+    }
 
-    public String getWeatherCity() { return this.weatherCity; }
+    public String getWeatherCity() {
+        return weatherCity;
+    }
 
-    public boolean isShowUpdate() { return this.showUpdate; }
+    public boolean isShowUpdate() {
+        return showUpdate;
+    }
 }
