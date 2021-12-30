@@ -22,11 +22,11 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class RealHandler extends WeatherHandler {
+
     private long lastWeatherCheck;
     private final JsonParser jsonParser = new JsonParser();
     private WeatherHandler weatherRender;
 
-    @Override
     public void update() {
         /* Checks local weather every minute */
         if (System.currentTimeMillis() - this.lastWeatherCheck > 60 * 1000) {

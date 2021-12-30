@@ -1,6 +1,7 @@
 package dev.salmon.weatherchanger.handler.weather;
 
 import com.google.common.base.Predicate;
+import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.util.CustomEntityLightningBolt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,7 +23,7 @@ public class StormHandler extends RainHandler {
     private Field loadedChunks;
 
     public StormHandler() {
-        super(weatherChanger, true);
+        super(WeatherChanger.getInstance(), true);
         try {
             this.loadedChunks = World.class.getDeclaredField("activeChunkSet");
             this.loadedChunks.setAccessible(true);

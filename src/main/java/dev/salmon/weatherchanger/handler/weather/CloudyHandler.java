@@ -5,13 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 
 public class CloudyHandler extends WeatherHandler {
-    @Override
-    public void render(float partialTicks, WorldClient world, Minecraft mc) {
 
+    public void render(float partialTicks, WorldClient world, Minecraft mc) {
     }
 
-    @Override
     public void update() {
-
     }
 }

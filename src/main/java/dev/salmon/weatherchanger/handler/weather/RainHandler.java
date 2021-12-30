@@ -107,7 +107,6 @@ public class RainHandler extends WeatherHandler {
         }
     }
 
-    @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
         EntityRenderer renderer = mc.entityRenderer;
         renderer.enableLightmap();
@@ -202,9 +201,9 @@ public class RainHandler extends WeatherHandler {
         renderer.disableLightmap();
     }
 
-    @Override
     public void update() {
-        this.rendererUpdateCount++;
-        this.addRainParticles();
+        rendererUpdateCount++;
+        addRainParticles();
     }
+
 }

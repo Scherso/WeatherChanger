@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class SnowHandler extends WeatherHandler {
+
     private final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
     private float[] snowX = new float[1024];
     private float[] snowY = new float[1024];
@@ -32,7 +33,6 @@ public class SnowHandler extends WeatherHandler {
         }
     }
 
-    @Override
     public void render(float partialTicks, WorldClient world, Minecraft mc) {
         EntityRenderer renderer = mc.entityRenderer;
         renderer.enableLightmap();
@@ -128,8 +128,8 @@ public class SnowHandler extends WeatherHandler {
         renderer.disableLightmap();
     }
 
-    @Override
     public void update() {
-        ++this.rendererUpdateCount;
+        ++rendererUpdateCount;
     }
+
 }
