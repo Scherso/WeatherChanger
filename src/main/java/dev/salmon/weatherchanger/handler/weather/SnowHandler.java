@@ -1,6 +1,6 @@
 package dev.salmon.weatherchanger.handler.weather;
 
-import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -14,8 +14,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Random;
 
 public class SnowHandler extends WeatherHandler {
     private final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
@@ -84,14 +82,10 @@ public class SnowHandler extends WeatherHandler {
                     l2 = j2;
                 }
 
-                int i3 = j2;
-
-                if (j2 < l) {
-                    i3 = l;
-                }
+                int i3 = Math.max(j2, l);
 
                 if (k2 != l2) {
-                    this.random.setSeed((long) (l1 * l1 * 3121 + l1 * 45238971 ^ k1 * k1 * 418711 + k1 * 13761));
+                    this.random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
                     blockpos$mutableblockpos.set(l1, k2, k1);
 
                     if (j1 != 1) {
@@ -100,21 +94,21 @@ public class SnowHandler extends WeatherHandler {
                         worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                     }
 
-                    double d8 = (double) (((float) (this.rendererUpdateCount & 511) + partialTicks) / 512.0F);
+                    double d8 = ((float) (this.rendererUpdateCount & 511) + partialTicks) / 512.0F;
                     double d9 = this.random.nextDouble() + (double) f1 * 0.01D * (double) ((float) this.random.nextGaussian());
                     double d10 = this.random.nextDouble() + (double) (f1 * (float) this.random.nextGaussian()) * 0.001D;
                     double d11 = (double) ((float) l1 + 0.5F) - entity.posX;
                     double d12 = (double) ((float) k1 + 0.5F) - entity.posZ;
                     float f6 = MathHelper.sqrt_double(d11 * d11 + d12 * d12) / (float) i1;
-                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherChanger.getWeatherChanger().getConfig().getStrength();
+                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherConfig.strength;
                     blockpos$mutableblockpos.set(l1, i3, k1);
                     int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;
                     int j4 = i4 >> 16 & 65535;
                     int k4 = i4 & 65535;
-                    worldrenderer.pos((double) l1 - d3 + 0.5D, (double) k2, (double) k1 - d4 + 0.5D).tex(0.0D + d9, (double) k2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
-                    worldrenderer.pos((double) l1 + d3 + 0.5D, (double) k2, (double) k1 + d4 + 0.5D).tex(1.0D + d9, (double) k2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
-                    worldrenderer.pos((double) l1 + d3 + 0.5D, (double) l2, (double) k1 + d4 + 0.5D).tex(1.0D + d9, (double) l2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
-                    worldrenderer.pos((double) l1 - d3 + 0.5D, (double) l2, (double) k1 - d4 + 0.5D).tex(0.0D + d9, (double) l2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
+                    worldrenderer.pos((double) l1 - d3 + 0.5D, k2, (double) k1 - d4 + 0.5D).tex(0.0D + d9, (double) k2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
+                    worldrenderer.pos((double) l1 + d3 + 0.5D, k2, (double) k1 + d4 + 0.5D).tex(1.0D + d9, (double) k2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
+                    worldrenderer.pos((double) l1 + d3 + 0.5D, l2, (double) k1 + d4 + 0.5D).tex(1.0D + d9, (double) l2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
+                    worldrenderer.pos((double) l1 - d3 + 0.5D, l2, (double) k1 - d4 + 0.5D).tex(0.0D + d9, (double) l2 * 0.25D + d8 + d10).color(1.0F, 1.0F, 1.0F, f5).lightmap(j4, k4).endVertex();
                 }
             }
         }

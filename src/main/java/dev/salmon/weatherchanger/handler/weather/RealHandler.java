@@ -3,23 +3,16 @@ package dev.salmon.weatherchanger.handler.weather;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
-import dev.salmon.weatherchanger.util.Multithread;
+import gg.essential.api.utils.Multithreading;
+import gg.essential.api.utils.WebUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class RealHandler extends WeatherHandler {
     private long lastWeatherCheck;
@@ -32,40 +25,29 @@ public class RealHandler extends WeatherHandler {
         if (System.currentTimeMillis() - this.lastWeatherCheck > 60 * 1000) {
             this.lastWeatherCheck = System.currentTimeMillis();
 
-            Multithread.async(()-> {
-                WeatherConfig config = WeatherChanger.getWeatherChanger().getConfig();
-                String apiKey = config.getWeatherApiKey();
+            Multithreading.runAsync(()-> {
+                String apiKey = WeatherConfig.weatherApiKey;
 
                 if (apiKey.isEmpty()) {
                     this.mc.thePlayer.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "You do not have an OpenWeatherMap API key set!"));
                     return;
                 }
 
-                String country = config.getWeatherCountry().toUpperCase();
-                String state = config.getWeatherState().toUpperCase();
-                String city = config.getWeatherCity().toUpperCase();
+                String country = WeatherConfig.weatherCountry.toUpperCase();
+                String state = WeatherConfig.weatherState.toUpperCase();
+                String city = WeatherConfig.weatherCity.toUpperCase();
                 /* State is only needed if the country is USA */
                 String location = country.equals("USA") ? String.format("%s,%s,%s", country, state, city) : String.format("%s,%s", country, city);
 
-                String url = String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", location, apiKey);
 
                 WeatherType weather = null;
-                try (CloseableHttpClient client = HttpClients.createDefault()) {
-                    HttpGet request = new HttpGet(url);
-
-                    try {
-                        StringWriter writer = new StringWriter();
-                        IOUtils.copy(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8), writer);
-
-                        JsonObject response = jsonParser.parse(writer.toString()).getAsJsonObject();
-                        int weatherId = response.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
-                        /* only reason this should return null is if OpenWeatherMap changes their ID's */
-                        weather = WeatherType.fromId(weatherId);
-                    } catch (JsonSyntaxException ex) {
-                        /* Retrieved bad Json */
-                        ex.printStackTrace();
-                    }
-                } catch (IOException ex) {
+                try {
+                    JsonObject response = jsonParser.parse(Objects.requireNonNull(WebUtil.fetchString(String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", location, apiKey)))).getAsJsonObject();
+                    int weatherId = response.get("weather").getAsJsonArray().get(0).getAsJsonObject().get("id").getAsInt();
+                    /* only reason this should return null is if OpenWeatherMap changes their ID's */
+                    weather = WeatherType.fromId(weatherId);
+                } catch (JsonSyntaxException ex) {
+                    /* Retrieved bad Json */
                     ex.printStackTrace();
                 }
 

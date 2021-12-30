@@ -1,8 +1,7 @@
 package dev.salmon.weatherchanger.listener;
 
-import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
-import dev.salmon.weatherchanger.handler.*;
+import dev.salmon.weatherchanger.handler.WeatherHandler;
 import dev.salmon.weatherchanger.handler.weather.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -20,7 +19,7 @@ public class WeatherListener {
     public void onTick(TickEvent.ClientTickEvent event) {
         if (Minecraft.getMinecraft().theWorld != null) {
             WorldClient world = Minecraft.getMinecraft().theWorld;
-            int currentWeather = WeatherChanger.getWeatherChanger().getConfig().getCurrentWeather();
+            int currentWeather = WeatherConfig.currentWeather;
             IRenderHandler currentWeatherHandler = world.provider.getWeatherRenderer();
 
             if (currentWeather == 0 && currentWeatherHandler instanceof WeatherHandler) {
@@ -37,7 +36,7 @@ public class WeatherListener {
             } else if (WeatherConfig.realWeather && !(currentWeatherHandler instanceof RealHandler)) {
                 world.provider.setWeatherRenderer(new RealHandler());
             } else if (currentWeather == 6 && !(currentWeatherHandler instanceof HailHandler)) {
-                world.provider.setWeatherRenderer(new HailHandler(true));
+                world.provider.setWeatherRenderer(new HailHandler());
             }
 
             if (currentWeatherHandler instanceof WeatherHandler && !Minecraft.getMinecraft().isGamePaused()) {

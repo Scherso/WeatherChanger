@@ -1,6 +1,5 @@
 package dev.salmon.weatherchanger.handler.weather;
 
-import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.block.Block;
@@ -20,8 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Random;
 
 public class RainHandler extends WeatherHandler {
     private final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
@@ -79,7 +76,7 @@ public class RainHandler extends WeatherHandler {
                 double d4 = this.random.nextDouble();
 
                 if (block.getMaterial() == Material.lava) {
-                    this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)blockpos1.getX() + d3, (double)((float)blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), (double)blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double)blockpos1.getX() + d3, (double)((float)blockpos1.getY() + 0.1F) - block.getBlockBoundsMinY(), (double)blockpos1.getZ() + d4, 0.0D, 0.0D, 0.0D);
                 }
                 else if (block.getMaterial() != Material.air) {
                     block.setBlockBoundsBasedOnState(world, blockpos2);
@@ -91,7 +88,7 @@ public class RainHandler extends WeatherHandler {
                         d2 = (double)blockpos2.getZ() + d4;
                     }
 
-                    this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double)blockpos2.getX() + d3, (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), (double)blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    this.mc.theWorld.spawnParticle(EnumParticleTypes.WATER_DROP, (double)blockpos2.getX() + d3, (double)((float)blockpos2.getY() + 0.1F) + block.getBlockBoundsMaxY(), (double)blockpos2.getZ() + d4, 0.0D, 0.0D, 0.0D);
                 }
             }
 
@@ -157,14 +154,10 @@ public class RainHandler extends WeatherHandler {
                     l2 = j2;
                 }
 
-                int i3 = j2;
-
-                if (j2 < l) {
-                    i3 = l;
-                }
+                int i3 = Math.max(j2, l);
 
                 if (k2 != l2) {
-                    this.random.setSeed((long)(l1 * l1 * 3121 + l1 * 45238971 ^ k1 * k1 * 418711 + k1 * 13761));
+                    this.random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
                     blockpos$mutableblockpos.set(l1, k2, k1);
 
                     if (j1 != 1) {
@@ -178,15 +171,15 @@ public class RainHandler extends WeatherHandler {
                     double d6 = (double)((float)l1 + 0.5F) - entity.posX;
                     double d7 = (double)((float)k1 + 0.5F) - entity.posZ;
                     float f3 = MathHelper.sqrt_double(d6 * d6 + d7 * d7) / (float)i1;
-                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherChanger.getWeatherChanger().getConfig().getStrength();
+                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherConfig.strength;
                     blockpos$mutableblockpos.set(l1, i3, k1);
                     int j3 = world.getCombinedLight(blockpos$mutableblockpos, 0);
                     int k3 = j3 >> 16 & 65535;
                     int l3 = j3 & 65535;
-                    worldrenderer.pos((double)l1 - d3 + 0.5D, (double)k2, (double)k1 - d4 + 0.5D).tex(0.0D, (double)k2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
-                    worldrenderer.pos((double)l1 + d3 + 0.5D, (double)k2, (double)k1 + d4 + 0.5D).tex(1.0D, (double)k2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
-                    worldrenderer.pos((double)l1 + d3 + 0.5D, (double)l2, (double)k1 + d4 + 0.5D).tex(1.0D, (double)l2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
-                    worldrenderer.pos((double)l1 - d3 + 0.5D, (double)l2, (double)k1 - d4 + 0.5D).tex(0.0D, (double)l2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
+                    worldrenderer.pos((double)l1 - d3 + 0.5D, k2, (double)k1 - d4 + 0.5D).tex(0.0D, (double)k2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
+                    worldrenderer.pos((double)l1 + d3 + 0.5D, k2, (double)k1 + d4 + 0.5D).tex(1.0D, (double)k2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
+                    worldrenderer.pos((double)l1 + d3 + 0.5D, l2, (double)k1 + d4 + 0.5D).tex(1.0D, (double)l2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
+                    worldrenderer.pos((double)l1 - d3 + 0.5D, l2, (double)k1 - d4 + 0.5D).tex(0.0D, (double)l2 * 0.25D + d5).color(1.0F, 1.0F, 1.0F, f4).lightmap(k3, l3).endVertex();
                 }
             }
         }

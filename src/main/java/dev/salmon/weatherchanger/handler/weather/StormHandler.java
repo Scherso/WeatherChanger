@@ -1,6 +1,5 @@
 package dev.salmon.weatherchanger.handler.weather;
 
-import com.google.common.base.Predicate;
 import dev.salmon.weatherchanger.util.CustomEntityLightningBolt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,7 +7,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -36,7 +34,7 @@ public class StormHandler extends RainHandler {
     @Override
     public void update() {
         super.update();
-        Set<ChunkCoordIntPair> activeChunkSet = null;
+        Set<ChunkCoordIntPair> activeChunkSet;
 
         /* Lightning Logic */
         try {
@@ -64,11 +62,7 @@ public class StormHandler extends RainHandler {
     protected BlockPos adjustPosToNearbyEntity(BlockPos pos) {
         BlockPos blockpos = this.mc.theWorld.getPrecipitationHeight(pos);
         AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), this.mc.theWorld.getHeight(), blockpos.getZ()))).expand(3.0D, 3.0D, 3.0D);
-        List<EntityLivingBase> list = this.mc.theWorld.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase p_apply_1_) {
-                return p_apply_1_ != null && p_apply_1_.isEntityAlive() && StormHandler.this.mc.theWorld.canSeeSky(p_apply_1_.getPosition());
-            }
-        });
-        return !list.isEmpty() ? ((EntityLivingBase)list.get(this.random.nextInt(list.size()))).getPosition() : blockpos;
+        List<EntityLivingBase> list = this.mc.theWorld.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, p_apply_1_ -> p_apply_1_ != null && p_apply_1_.isEntityAlive() && StormHandler.this.mc.theWorld.canSeeSky(p_apply_1_.getPosition()));
+        return !list.isEmpty() ? list.get(this.random.nextInt(list.size())).getPosition() : blockpos;
     }
 }

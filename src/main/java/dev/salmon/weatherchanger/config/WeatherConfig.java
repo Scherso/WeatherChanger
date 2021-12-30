@@ -9,10 +9,6 @@ import java.io.File;
 
 public class WeatherConfig extends Vigilant {
 
-    public WeatherConfig() {
-        super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
-    }
-
     @Property(
             type = PropertyType.SELECTOR,
             name = "Pick the Weather",
@@ -20,7 +16,7 @@ public class WeatherConfig extends Vigilant {
             category = "General",
             options = {"Vanilla", "Clear", "Snow", "Rain", "Storm", "Hail", "Fog", "Cloudy", "Real"}
     )
-    private int currentWeather = 0;
+    public static int currentWeather = 0;
     // 0 == Vanilla, 1 == Clear, 2 == Snow, 3 == Rain, 4 == Storm, 5 == Hail, 6 == Fog, 7 == Cloudy, 8 == Real
 
     @Property(
@@ -28,7 +24,6 @@ public class WeatherConfig extends Vigilant {
             name = "Intensity",
             description = "Allows you to control the intensity or opacity of the weather Particles.",
             category = "General",
-            minF = 0f,
             maxF = 1.0f
     )
     public static float strength = 1.0f;
@@ -50,7 +45,7 @@ public class WeatherConfig extends Vigilant {
             placeholder = "None",
             protectedText = true
     )
-    private String weatherApiKey = "";
+    public static String weatherApiKey = "";
 
     @Property(
             type = PropertyType.TEXT,
@@ -60,7 +55,7 @@ public class WeatherConfig extends Vigilant {
             placeholder = "None",
             protectedText = true
     )
-    private String weatherCountry = "";
+    public static String weatherCountry = "";
 
     @Property(
             type = PropertyType.TEXT,
@@ -70,7 +65,7 @@ public class WeatherConfig extends Vigilant {
             placeholder = "None",
             protectedText = true
     )
-    private String weatherState = "";
+    public static String weatherState = "";
 
     @Property(
             type = PropertyType.TEXT,
@@ -80,7 +75,7 @@ public class WeatherConfig extends Vigilant {
             placeholder = "None",
             protectedText = true
     )
-    private String weatherCity = "";
+    public static String weatherCity = "";
 
     @Property(
             type = PropertyType.SWITCH,
@@ -88,19 +83,9 @@ public class WeatherConfig extends Vigilant {
             description = "Show a notification when you start Minecraft informing you of new updates.",
             category = "Updater"
     )
-    private boolean showUpdate = true;
+    public static boolean showUpdate = true;
 
-    public int getCurrentWeather() { return currentWeather; }
-
-    public float getStrength() { return this.strength; }
-
-    public String getWeatherApiKey() { return this.weatherApiKey; }
-
-    public String getWeatherCountry() { return this.weatherCountry; }
-
-    public String getWeatherState() { return this.weatherState; }
-
-    public String getWeatherCity() { return this.weatherCity; }
-
-    public boolean isShowUpdate() { return this.showUpdate; }
+    public WeatherConfig() {
+        super(new File("./config", WeatherChanger.ID + ".toml"), WeatherChanger.NAME);
+    }
 }
