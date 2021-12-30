@@ -2,6 +2,7 @@ package dev.salmon.weatherchanger.listener;
 
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherConfig;
+import dev.salmon.weatherchanger.config.WeatherType;
 import dev.salmon.weatherchanger.handler.*;
 import dev.salmon.weatherchanger.handler.weather.*;
 import net.minecraft.client.Minecraft;
@@ -16,11 +17,13 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Random;
 
 public class WeatherListener {
+
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (Minecraft.getMinecraft().theWorld != null) {
             WorldClient world = Minecraft.getMinecraft().theWorld;
-            int currentWeather = WeatherChanger.getWeatherChanger().getConfig().getCurrentWeather();
+            WeatherChanger weatherChanger = WeatherChanger.getInstance();
+            WeatherType currentWeather = WeatherChanger.getInstance().getConfig().getCurrentWeather();
             IRenderHandler currentWeatherHandler = world.provider.getWeatherRenderer();
 
             if (currentWeather == 0 && currentWeatherHandler instanceof WeatherHandler) {
@@ -33,7 +36,7 @@ public class WeatherListener {
             } else if (currentWeather == 2 && !(currentWeatherHandler instanceof SnowHandler)) {
                 world.provider.setWeatherRenderer(new SnowHandler());
             } else if (currentWeather == 3 && !(currentWeatherHandler instanceof RainHandler)) {
-                world.provider.setWeatherRenderer(new RainHandler(true));
+                world.provider.setWeatherRenderer(new RainHandler(weatherChanger, true));
             } else if (WeatherConfig.realWeather && !(currentWeatherHandler instanceof RealHandler)) {
                 world.provider.setWeatherRenderer(new RealHandler());
             } else if (currentWeather == 6 && !(currentWeatherHandler instanceof HailHandler)) {
@@ -55,4 +58,5 @@ public class WeatherListener {
             }
         }
     }
+
 }

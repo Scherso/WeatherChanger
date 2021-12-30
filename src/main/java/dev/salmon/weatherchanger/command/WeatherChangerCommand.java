@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -35,7 +34,7 @@ public class WeatherChangerCommand extends CommandBase {
 
     @SubscribeEvent
     public void openGui(TickEvent.ClientTickEvent event) {
-        Minecraft.getMinecraft().displayGuiScreen(WeatherChanger.getWeatherChanger().getConfig().gui());
+        Minecraft.getMinecraft().displayGuiScreen(WeatherChanger.getInstance().getConfig().gui());
         WeatherChanger.unregisterListeners(this);
     }
 }

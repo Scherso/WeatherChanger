@@ -15,8 +15,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
-
 public class SnowHandler extends WeatherHandler {
     private final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
     private float[] snowX = new float[1024];
@@ -106,7 +104,7 @@ public class SnowHandler extends WeatherHandler {
                     double d11 = (double) ((float) l1 + 0.5F) - entity.posX;
                     double d12 = (double) ((float) k1 + 0.5F) - entity.posZ;
                     float f6 = MathHelper.sqrt_double(d11 * d11 + d12 * d12) / (float) i1;
-                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherChanger.getWeatherChanger().getConfig().getStrength();
+                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherChanger.getInstance().getConfig().getStrength();
                     blockpos$mutableblockpos.set(l1, i3, k1);
                     int i4 = (world.getCombinedLight(blockpos$mutableblockpos, 0) * 3 + 15728880) / 4;
                     int j4 = i4 >> 16 & 65535;
