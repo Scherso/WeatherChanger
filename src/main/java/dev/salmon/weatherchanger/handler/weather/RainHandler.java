@@ -1,6 +1,6 @@
 package dev.salmon.weatherchanger.handler.weather;
 
-import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.config.WeatherType;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.block.Block;
@@ -21,15 +21,13 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class RainHandler extends WeatherHandler {
-    private final WeatherChanger weatherChanger;
 
     private final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private final float[] rainX = new float[1024];
     private final float[] rainY = new float[1024];
     private int rainSoundCounter;
 
-    public RainHandler(WeatherChanger weatherChanger) {
-        this.weatherChanger = weatherChanger;
+    public RainHandler() {
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 32; ++j) {
                 float f = (float)(j - 16);
@@ -42,7 +40,7 @@ public class RainHandler extends WeatherHandler {
     }
 
     private void addRainParticles() {
-        float f = weatherChanger.getConfig().getStrength();
+        float f = WeatherConfig.strength;
         if (!mc.gameSettings.fancyGraphics) f /= 2f;
         if (f != 0f) {
             this.random.setSeed((long) rendererUpdateCount * 312987231L);
@@ -132,8 +130,7 @@ public class RainHandler extends WeatherHandler {
                 int l2 = j + i1;
                 if (k2 < j2) k2 = j2;
                 if (l2 < j2) l2 = j2;
-                int i3 = j2;
-                if (j2 < l) i3 = l;
+                int i3 = Math.max(j2, l);
                 if (k2 != l2) {
                     this.random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
                     pos.set(l1, k2, k1);
@@ -147,7 +144,7 @@ public class RainHandler extends WeatherHandler {
                     double d6 = (double) ((float) l1 + 0.5f) - entity.posX;
                     double d7 = (double) ((float) k1 + 0.5f) - entity.posZ;
                     float f3 = MathHelper.sqrt_double(d6 * d6 + d7 * d7) / (float)i1;
-                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherChanger.getInstance().getConfig().getStrength();
+                    float f4 = ((1.0F - f3 * f3) * 0.5F + 0.5F) * WeatherConfig.strength;
                     pos.set(l1, i3, k1);
                     int j3 = world.getCombinedLight(pos, 0);
                     int k3 = j3 >> 16 & 65535;
