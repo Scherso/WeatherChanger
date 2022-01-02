@@ -1,6 +1,6 @@
 package dev.salmon.weatherchanger.handler.weather;
 
-import dev.salmon.weatherchanger.WeatherChanger;
+import dev.salmon.weatherchanger.config.WeatherConfig;
 import dev.salmon.weatherchanger.config.WeatherType;
 import dev.salmon.weatherchanger.handler.WeatherHandler;
 import net.minecraft.client.Minecraft;
@@ -89,7 +89,7 @@ public class SnowHandler extends WeatherHandler {
                     double d11 = (double) ((float) l1 + 0.5F) - entity.posX;
                     double d12 = (double) ((float) k1 + 0.5F) - entity.posZ;
                     float f6 = MathHelper.sqrt_double(d11 * d11 + d12 * d12) / (float) i1;
-                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherChanger.getInstance().getConfig().getStrength();
+                    float f5 = ((1.0F - f6 * f6) * 0.3F + 0.5F) * WeatherConfig.strength;
                     pos.set(l1, i3, k1);
                     int i4 = (world.getCombinedLight(pos, 0) * 3 + 15728880) / 4;
                     int j4 = i4 >> 16 & 65535;

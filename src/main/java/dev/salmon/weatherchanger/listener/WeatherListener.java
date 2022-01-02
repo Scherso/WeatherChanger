@@ -2,11 +2,10 @@ package dev.salmon.weatherchanger.listener;
 
 import dev.salmon.weatherchanger.WeatherChanger;
 import dev.salmon.weatherchanger.config.WeatherType;
-import dev.salmon.weatherchanger.handler.*;
-import dev.salmon.weatherchanger.handler.weather.*;
+import dev.salmon.weatherchanger.handler.WeatherHandler;
+import dev.salmon.weatherchanger.handler.weather.VanillaHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.client.IRenderHandler;
@@ -31,7 +30,7 @@ public class WeatherListener {
 
             if (currentHandler instanceof WeatherHandler && !Minecraft.getMinecraft().isGamePaused()) {
                 ((WeatherHandler) currentHandler).update();
-                World serverWorld = MinecraftServer.getServer().worldServers[0];
+                World serverWorld = Minecraft.getMinecraft().theWorld;
                 WorldInfo worldInfo = serverWorld.getWorldInfo();
                 if (worldInfo.isRaining()) {
                     worldInfo.setCleanWeatherTime(Integer.MAX_VALUE);
