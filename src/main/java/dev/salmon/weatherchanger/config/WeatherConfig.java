@@ -20,10 +20,7 @@ public class WeatherConfig extends Vigilant {
      *      2 - Snow
      *      3 - Rain
      *      4 - Storm
-     *      5 - Hail
-     *      6 - Fog
-     *      7 - Cloudy
-     *      8 - Real
+     *      5 - Real
      */
     @Property(
             type = PropertyType.SELECTOR,
@@ -35,11 +32,7 @@ public class WeatherConfig extends Vigilant {
                     "Clear",
                     "Snow",
                     "Rain",
-                    "Storm",
-                    "Hail",
-                    "Fog",
-                    "Cloudy",
-                    "Real"
+                    "Storm"
             }
     )
     private int currentWeather = 0;
@@ -56,55 +49,6 @@ public class WeatherConfig extends Vigilant {
 
     @Property(
             type = PropertyType.SWITCH,
-            name = "Real Life Weather",
-            description = "Toggle weather that corresponds your local weather.",
-            category = "General",
-            subcategory = "Real Weather"
-    )
-    public static boolean realWeather = false;
-
-    @Property(
-            type = PropertyType.TEXT,
-            name = "OpenWeatherMap API Key",
-            description = "Used to gather local weather data if using the \"Real WeatherChanger\"",
-            category = "RealWeather",
-            placeholder = "None",
-            protectedText = true
-    )
-    private String weatherApiKey = "";
-
-    @Property(
-            type = PropertyType.TEXT,
-            name = "Country",
-            description = "Desired Country to grab weather data from.",
-            category = "RealWeather",
-            placeholder = "None",
-            protectedText = true
-    )
-    private String weatherCountry = "";
-
-    @Property(
-            type = PropertyType.TEXT,
-            name = "State",
-            description = "Desired USA State to grab weather data from.\n(Only works if Country is set to USA)\n(Cannot contain spaces)",
-            category = "RealWeather",
-            placeholder = "None",
-            protectedText = true
-    )
-    private String weatherState = "";
-
-    @Property(
-            type = PropertyType.TEXT,
-            name = "City",
-            description = "Desired City to grab weather data from.\n(Cannot contain spaces)",
-            category = "RealWeather",
-            placeholder = "None",
-            protectedText = true
-    )
-    private String weatherCity = "";
-
-    @Property(
-            type = PropertyType.SWITCH,
             name = "Show Update Notification",
             description = "Show a notification when you start Minecraft informing you of new updates.",
             category = "Updater"
@@ -117,22 +61,6 @@ public class WeatherConfig extends Vigilant {
 
     public float getStrength() {
         return strength;
-    }
-
-    public String getWeatherApiKey() {
-        return weatherApiKey;
-    }
-
-    public String getWeatherCountry() {
-        return weatherCountry;
-    }
-
-    public String getWeatherState() {
-        return weatherState;
-    }
-
-    public String getWeatherCity() {
-        return weatherCity;
     }
 
     public boolean isShowUpdate() {

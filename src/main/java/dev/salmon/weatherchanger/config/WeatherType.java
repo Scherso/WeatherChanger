@@ -7,10 +7,7 @@ public enum WeatherType {
     SNOW(2),
     RAIN(3),
     STORM(4),
-    HAIL(5),
-    FOG(6),
-    CLOUDY(7),
-    REAL(8);
+    REAL(5); // future update stuff
 
     private final int raw;
     WeatherType(int raw) {
