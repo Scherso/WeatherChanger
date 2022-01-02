@@ -8,6 +8,7 @@ import dev.salmon.weatherchanger.handler.weather.*;
 import dev.salmon.weatherchanger.listener.WeatherListener;
 import dev.salmon.weatherchanger.util.ForgeHelper;
 import gg.essential.vigilance.Vigilance;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,9 +35,6 @@ public class WeatherChanger {
 
         handlerRegistry = new WeatherHandlerRegistry();
         handlerRegistry.addHandler(new ClearHandler());
-        handlerRegistry.addHandler(new CloudyHandler());
-        handlerRegistry.addHandler(new FogHandler());
-        handlerRegistry.addHandler(new HailHandler());
         handlerRegistry.addHandler(new RainHandler(this));
         // TODO - handlerRegistry.addHandler(new RealHandler());
         handlerRegistry.addHandler(new SnowHandler());

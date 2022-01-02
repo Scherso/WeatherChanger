@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import java.util.Arrays;
 
 /**
- * @author Deftu
+ * @author Max, Salmon, Deftu
  * @version 1.0.0
  */
 public class ForgeHelper {
