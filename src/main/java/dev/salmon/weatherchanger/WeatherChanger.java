@@ -25,9 +25,4 @@ public class WeatherChanger {
         return this.config;
     }
 
-    public void save() {
-        this.getConfig().markDirty();
-        this.getConfig().writeData();
-    }
-
 }

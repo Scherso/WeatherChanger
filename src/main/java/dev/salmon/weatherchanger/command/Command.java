@@ -15,5 +15,4 @@ public class Command extends gg.essential.api.commands.Command {
         EssentialAPI.getGuiUtil().openScreen(WeatherChanger.Instance.getConfig().gui());
     }
 
-
 }
