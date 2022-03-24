@@ -1,19 +1,18 @@
 [
-    {
-        "modid": "${id}",
-        "name": "${name}",
-        "description": "A mod that changes the weather",
-        "version": "${version}",
-        "mcversion": "${mcversion}",
-        "url": "https://github.com/Scherso/Weather-Changer",
-        "updateUrl": "",
-        "authorList": [
-            "Salmon",
-            "Max"
-        ],
-        "credits": "Deftu",
-        "logoFile": "",
-        "screenshots": [],
-        "dependencies": []
-    }
+  {
+    "modid": "${id}",
+    "name": "${name}",
+    "description": "Changes the client-side weather in Minecraft.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/W-OVERFLOW/Weather-Changer",
+    "updateUrl": "",
+    "authorList": [
+      "Salmon"
+    ],
+    "credits": "Max",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]

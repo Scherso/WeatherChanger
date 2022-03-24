@@ -6,29 +6,21 @@ public enum WeatherType {
     CLEAR(1),
     SNOW(2),
     RAIN(3),
-    STORM(4),
-    HAIL(5),
-    FOG(6),
-    CLOUDY(7),
-    REAL(8);
+    STORM(4);
 
-    private final int raw;
-    WeatherType(int raw) {
-        this.raw = raw;
+    private final int id;
+    WeatherType(int id) {
+        this.id = id;
     }
 
-    public int getRaw() {
-        return raw;
-    }
-
-    public static WeatherType from(int raw) {
+    public static WeatherType from(int id) {
         for (WeatherType value : values()) {
-            if (value.raw == raw) {
+            if(value.id == id) {
                 return value;
             }
         }
 
-        return REAL;
+        return VANILLA;
     }
 
 }
