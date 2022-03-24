@@ -2,7 +2,7 @@ pluginManagement {
     repositories {
         maven {
             name = "W-OVERFLOW"
-            url = "https://repo.woverflow.cc./"
+            url = "https://repo.woverflow.cc/"
         }
     }
 
