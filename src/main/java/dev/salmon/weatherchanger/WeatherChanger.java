@@ -1,60 +1,33 @@
-
 package dev.salmon.weatherchanger;
 
-import dev.salmon.weatherchanger.command.WeatherChangerCommand;
-import dev.salmon.weatherchanger.config.WeatherConfig;
-import dev.salmon.weatherchanger.handler.WeatherHandlerRegistry;
-import dev.salmon.weatherchanger.handler.weather.*;
-import dev.salmon.weatherchanger.listener.WeatherListener;
-import dev.salmon.weatherchanger.util.ForgeHelper;
-import gg.essential.vigilance.Vigilance;
-import net.minecraft.command.ICommand;
-import net.minecraftforge.client.ClientCommandHandler;
-import net.minecraftforge.common.MinecraftForge;
+import dev.salmon.weatherchanger.command.Command;
+import dev.salmon.weatherchanger.config.Config;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.util.Arrays;
-
-@Mod(modid = WeatherChanger.ID, name = WeatherChanger.NAME, version = WeatherChanger.VER)
+@Mod(modid = WeatherChanger.ID, name = WeatherChanger.NAME, version = WeatherChanger.VER, acceptedMinecraftVersions = "1.8.9, 1.12.2")
 public class WeatherChanger {
 
     public static final String NAME = "@NAME@", VER = "@VER@", ID = "@ID@";
-    @Mod.Instance private static WeatherChanger instance;
-    private WeatherConfig config;
-    private WeatherHandlerRegistry handlerRegistry;
+    private Config config;
+
+    @Mod.Instance(ID)
+    public static WeatherChanger Instance;
 
     @Mod.EventHandler
     protected void onInitialization(FMLInitializationEvent event) {
-        Vigilance.initialize();
-
-        config = new WeatherConfig();
+        new Command().register();
+        config = new Config();
         config.preload();
-
-        handlerRegistry = new WeatherHandlerRegistry();
-        handlerRegistry.addHandler(new ClearHandler());
-        handlerRegistry.addHandler(new CloudyHandler());
-        handlerRegistry.addHandler(new FogHandler());
-        handlerRegistry.addHandler(new HailHandler());
-        handlerRegistry.addHandler(new RainHandler(this));
-        // TODO - handlerRegistry.addHandler(new RealHandler());
-        handlerRegistry.addHandler(new SnowHandler());
-        handlerRegistry.addHandler(new StormHandler(this));
-        handlerRegistry.addHandler(new VanillaHandler());
-
-        ForgeHelper.registerCommands(new WeatherChangerCommand());
-        ForgeHelper.registerListeners(new WeatherListener());
     }
 
-    public WeatherConfig getConfig() {
-        return config;
+    public Config getConfig() {
+        return this.config;
     }
 
-    public WeatherHandlerRegistry getHandlerRegistry() {
-        return handlerRegistry;
+    public void save() {
+        this.getConfig().markDirty();
+        this.getConfig().writeData();
     }
-
-    public static WeatherChanger getInstance() { return instance; }
 
 }
