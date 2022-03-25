@@ -17,7 +17,7 @@ public class WorldChunkManagerMixin {
     @Inject(method = "getTemperatureAtHeight", at=@At("RETURN"), cancellable = true)
     private void setSnowing(CallbackInfoReturnable<Float> clr) {
         if (WeatherChanger.Instance.getConfig().getCurrentWeather() == WeatherType.SNOW) {
-            clr.setReturnValue(0.10F);
+            clr.setReturnValue(0.0F);
         }
     }
 
