@@ -31,8 +31,8 @@ public class Config extends Vigilant {
 
     @Property(
             type = PropertyType.DECIMAL_SLIDER,
-            name = "Intensity",
-            description = "Allows you to control the intensity or opacity of the weather Particles.",
+            name = "Precipitation Intensity",
+            description = "Allows you to control the intensity and or opacity of precipitation.",
             category = "General",
             minF = 0f,
             maxF = 1.0f
@@ -41,7 +41,7 @@ public class Config extends Vigilant {
 
     @Property(
             type = PropertyType.DECIMAL_SLIDER,
-            name = "Intensity",
+            name = "Thunder Intensity",
             description = "Allows you to control the intensity and repetition of Thunder.",
             category = "General",
             minF = 0f,
