@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @SideOnly(Side.CLIENT)
 @Mixin(WorldInfo.class)
-public abstract class WorldInfoMixin {
+public class WorldInfoMixin {
 
 
     @Inject(method = "isRaining", at = @At("RETURN"), cancellable = true)

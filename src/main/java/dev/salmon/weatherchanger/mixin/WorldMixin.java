@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @SideOnly(Side.CLIENT)
 @Mixin(World.class)
-public abstract class WorldMixin {
+public class WorldMixin {
 
     @Inject(method = "getThunderStrength", at = @At("RETURN"), cancellable = true)
     public void setThunderStrength(CallbackInfoReturnable<Float> clr) {
