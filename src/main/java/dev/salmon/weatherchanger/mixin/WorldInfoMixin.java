@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(WorldInfo.class)
 public class WorldInfoMixin {
 
-
     @Inject(method = "isRaining", at = @At("RETURN"), cancellable = true)
     private void setPrecipitation(CallbackInfoReturnable<Boolean> clr) {
 
