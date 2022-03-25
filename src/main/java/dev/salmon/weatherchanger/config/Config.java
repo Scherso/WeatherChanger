@@ -37,7 +37,7 @@ public class Config extends Vigilant {
             minF = 0f,
             maxF = 1.0f
     )
-    public static float strength = 1.0f;
+    private float strength = 1.0f;
 
     @Property(
             type = PropertyType.DECIMAL_SLIDER,
