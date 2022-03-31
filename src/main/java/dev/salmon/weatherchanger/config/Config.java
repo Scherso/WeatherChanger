@@ -34,7 +34,6 @@ public class Config extends Vigilant {
             name = "Precipitation Intensity",
             description = "Allows you to control the intensity and or opacity of precipitation.",
             category = "General",
-            minF = 0f,
             maxF = 1.0f
     )
     private float strength = 1.0f;
@@ -44,7 +43,6 @@ public class Config extends Vigilant {
             name = "Thunder Intensity",
             description = "Allows you to control the intensity and repetition of Thunder.",
             category = "General",
-            minF = 0f,
             maxF = 1.0f
     )
     private float thunderStrength = 1.0f;
