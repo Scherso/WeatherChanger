@@ -84,9 +84,10 @@
 <h5 align="left">
   
   > Credits to [Max][exejar] for the help he put into this mod
-  
+  > Credits to [Wyvest][wyvest] for preprocessing the mod for cross compatability. 
 </h5>
 
 [forge]: https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html
 [releases]: https://github.com/Scherso/BetterHurtCam/releases
 [exejar]: https://github.com/exejar
+[wyvest]: https://github.com/wyvest
