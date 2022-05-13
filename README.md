@@ -80,11 +80,17 @@
        src="https://user-images.githubusercontent.com/90007553/163439869-3c72be44-85f9-4886-920d-a3a1efd9458d.png"
   />
 </a>
-
+<a href="https://github.com/wyvest">
+  <img align="right" width="30"
+       src="https://user-images.githubusercontent.com/90007553/168198932-fe6189a2-1e36-49c2-b6b6-9af3224d6b47.png"
+  />
+</a>
 <h5 align="left">
   
   > Credits to [Max][exejar] for the help he put into this mod
+  >
   > Credits to [Wyvest][wyvest] for preprocessing the mod for cross compatability. 
+  
 </h5>
 
 [forge]: https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html
