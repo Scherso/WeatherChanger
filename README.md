@@ -94,6 +94,6 @@
 </h5>
 
 [forge]: https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html
-[releases]: https://github.com/Scherso/BetterHurtCam/releases
+[releases]: https://github.com/Scherso/WeatherChanger/releases/latest
 [exejar]: https://github.com/exejar
 [wyvest]: https://github.com/wyvest
